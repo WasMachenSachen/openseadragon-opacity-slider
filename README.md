@@ -1,0 +1,1 @@
+# openseadragon-opacity-slider
