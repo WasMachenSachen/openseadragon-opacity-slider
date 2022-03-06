@@ -81,6 +81,7 @@ const layerInformation = [
   // One object for each layer
 ]
 ```
+Please note, that it's currently **not** possible to add the same image (source) multiple times.
 
 3. Setup the [options](#options) for the layers:
 ```js
