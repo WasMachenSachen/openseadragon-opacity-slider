@@ -1,6 +1,8 @@
 # openseadragon-opacity-slider
-This plugin adds to OSD the functionality to adjust the transparency of superimposed images in the GUI, as well as to adjust their order. 
-This can be useful for comparing diffrent maps of the same place, satellite-imagery with diffrent recording dates, images of art captured with different techniques<!-- TODO: (like in the [demo](#)) -->.
+> This plugin/repository is under **active** development! Planned release is end of march! 
+
+This plugin adds to [OpenSeaDragon (OSD)](https://openseadragon.github.io) the functionality to adjust the transparency of superimposed images in the GUI, as well as to adjust their order. 
+This can be useful for comparing different maps of the same place, satellite-imagery with different recording dates, images of art captured with different techniques<!-- TODO: (like in the [demo](#)) -->.
 <!-- TODO: GIF here -->
 
 <!-- You can try out a demo [here](#). <br />Recordings kindly provided by the [*cda_* - Cranach Digital Archive](https://lucascranach.org/). © Stiftung Museum Kunstpalast, Düsseldorf / Technische Hochschule Köln, 2022   -->
@@ -9,12 +11,13 @@ This can be useful for comparing diffrent maps of the same place, satellite-imag
 OpenSeaDragon (OSD) > v.3.0.0
 
 ## Glossary
-For a better understanding of the plugin, here are some terms defined, which we will use in the further:
-- **Layer:** Because of the reason that we put several images on top of each other we don't talk about images anymore but about layers. An image thus represents a layer.
+For a better understanding of the plugin, here are some terms defined, which we will use in this documentation:
+- **Layer:** Caused by the reason that we put several images on top of each other we don't talk about images anymore but about layers. An image thus represents a layer.
 - **Layername:** The layername represents the designation of a layer, which can be, for example, the recording date or the recording technique.
 - **Layernameexplanation:** The layernameexplanation are additional informations for the user about the layer.
-- **Slider:** Each visible layer has a slider to manipulate it. Without any additional [settings](#options-and-methods) a slider consisits of a removal-button, up- and down-buttons for the layerorder, a range slider and a number-input for changing the opacity.
+- **Slider:** Each visible layer has a slider to manipulate it. Without any additional [settings](#options) a slider consisits of a removal-button, up- and down-buttons for the layerorder, a range slider and a number-input for changing the opacity. So a slider is not only the range input.
 - **Sliderarea:** The sliderarea is the space where all the sliders life.
+- **Layerpicker:** The layerpicker is an additional area where all layers are listed and can be toggled. Also there the layernameexplanation is shown.
 
 ## Installation
 If not already done install OSD as described in the [OSD installation guide](https://openseadragon.github.io/#download).
@@ -28,13 +31,12 @@ npm: `npm install XXX`
 yarn: `yarn add XXX`
 
 pnpm: `pnpm add XXX`
+
 ### 2. Via download 
-Download the Plugin [here](https://github.com/WasMachenSachen/openseadragon-opacity-slider/archive/refs/heads/main.zip) and move it into your project directory.
+Download the Plugin [here](https://github.com/WasMachenSachen/openseadragon-opacity-slider/archive/refs/heads/main.zip) and move it into your project directory. For size reasons only copy the `dist`-folder.
 
 ## Setup and Usage
-<!-- TODO: Check if everything is right! 
-aufteilen in zwei anfangsschritte Mit/ohne OSD
--->
+<!-- TODO: Check if everything is right! -->
 1. Setup OSD, if already done go to 3.
 
 Add div for OSD to your html:
@@ -80,7 +82,7 @@ const layerInformation = [
 ]
 ```
 
-3. Setup the options for the layers:
+3. Setup the [options](#options) for the layers:
 ```js
 const osdosOptions = {
   // Options can go here
@@ -92,9 +94,9 @@ const osdosOptions = {
 viewer.opacityslider({ ...osdosOptions, layerInformation });
 ```
 
-If everything is right there should be a basic sliderarea below the OSD-viewer. Now you can style the sliderarea and sliders like described [here](#styling) or change the options like described [below](#options-and-methods).
+If everything is right there should be a basic sliderarea below the OSD-viewer. Now you can style the sliderarea and sliders like described [here](#styling) or change the options like described [below](#options).
 
-## Options and Methods
+## Options
 You can set multiple options in your options-object for the output of the sliderarea:
 | Option | Type | Default | Explanation | Additional information|
 |---|---|---|---|---|
@@ -135,42 +137,19 @@ In [style-blueprint.css](#) you find all classes you can use for styling. In add
 If you want to share your stylesheet with others, feel free to open a [pull request](https://github.com/WasMachenSachen/openseadragon-opacity-slider/pulls)!
 ## Team and Contribution
 This plugin is developed and maintained by this Team: 
-<style>
-  .contribute-container{
-    display:flex; 
-    gap: 10px; 
-    flex-direction: row;
-  }
-  @media(max-width: 750px){
-     .contribute-container{
-      flex-direction: column;
-    }
-  }
-</style>
-<div class="contribute-container ">
-  <div>
-    <img src="https://avatars.githubusercontent.com/u/24228449?s=60&v=4" style="margin: auto; display: block; width: 150px; height: 150px; border-radius: 50%" />
-    <span style="display:block;"><a href="https://github.com/WasMachenSachen">@WasMachenSachen</a> | Tim Loges</span>
-  </div>
-  <div>
-    <img src="https://avatars.githubusercontent.com/u/32795896?s=60&v=4" style="margin: auto; display: block; width: 150px; height: 150px; border-radius: 50%" />
-    <span style="display:block;"><a href="https://github.com/BenediktEngel">@BenediktEngel</a> | Benedikt Engel</span>
-  </div>
-  <div>
-    <img src="https://avatars.githubusercontent.com/u/76556430?s=60&v=4" style="margin: auto; display: block; width: 150px; height: 150px; border-radius: 50%" />
-    <span style="display:block;"><a href="https://github.com/Masch229">@Masch229</a> | Marius Scherff</span>
-  </div>
-  <div>
-    <img src="https://avatars.githubusercontent.com/u/33115432?s=60&v=4" style="margin: auto; display: block; width: 150px; height: 150px; border-radius: 50%" />
-    <span style="display:block;"><a href="https://github.com/SickxX">@SickxX</a> | Cristopher Toth</span>
-  </div>
-</div>
+|  <div style="width:15%"></div>  |   |   |
+|:---:|:---:|:---:|
+| ![](https://avatars.githubusercontent.com/u/24228449?s=60&v=4) | [@WasMachenSachen](https://github.com/WasMachenSachen) | Tim Loges |
+| ![](https://avatars.githubusercontent.com/u/32795896?s=60&v=4) | [@BenediktEngel](https://github.com/BenediktEngel) | Benedikt Engel |
+| ![](https://avatars.githubusercontent.com/u/76556430?s=60&v=4) | [@Masch229](https://github.com/Masch229) | Marius Scherff |
+| ![](https://avatars.githubusercontent.com/u/33115432?s=60&v=4) | [@SickxX](https://github.com/SickxX) | Christopher Toth |
+
 
 ### Contribute
 
 If you want to contribute feel free to build something, but give your best to follow the following steps:
 
-1. Create a new branch with the `dev`-branch as base.
+1. Create a new branch with the `dev`-branch as base. Please consider a good and speaking name for your branch.
 2. Now you can build stuff.
 3. For your commit-messages please use the [conventional commits syntax](https://www.conventionalcommits.org/en/v1.0.0/#specification).
 4. If everything is done open a pull request onto the `dev`-branch we will look into it and when everything is fine it will get merged. 
