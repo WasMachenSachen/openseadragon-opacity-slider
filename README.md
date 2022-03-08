@@ -1,7 +1,7 @@
 # openseadragon-opacity-slider
 > This plugin/repository is under **active** development! Planned release is end of march! 
 
-This plugin adds to [OpenSeaDragon (OSD)](https://openseadragon.github.io) the functionality to adjust the transparency of superimposed images in the GUI, as well as to adjust their order. 
+This plugin adds the functionality to adjust the transparency of superimposed images to [OpenSeaDragon (OSD)](https://openseadragon.github.io) in the GUI, as well as to adjust their order.
 This can be useful for comparing different maps of the same place, satellite-imagery with different recording dates, images of art captured with different techniques<!-- TODO: (like in the [demo](#)) -->.
 <!-- TODO: GIF here -->
 
@@ -11,12 +11,12 @@ This can be useful for comparing different maps of the same place, satellite-ima
 OpenSeaDragon (OSD) > v.3.0.0
 
 ## Glossary
-For a better understanding of the plugin, here are some terms defined, which we will use in this documentation:
-- **Layer:** Caused by the reason that we put several images on top of each other we don't talk about images anymore but about layers. An image thus represents a layer.
+For a better understanding of the plugin, here are some terms, which we will use in this documentation:
+- **Layer:** Due to the reason that we put several images on top of each other, we don't talk about images anymore, but about layers. An image thus represents a layer.
 - **Layername:** The layername represents the designation of a layer, which can be, for example, the recording date or the recording technique.
 - **Layernameexplanation:** The layernameexplanation are additional informations for the user about the layer.
 - **Slider:** Each visible layer has a slider to manipulate it. Without any additional [settings](#options) a slider consisits of a removal-button, up- and down-buttons for the layerorder, a range slider and a number-input for changing the opacity. So a slider is not only the range input.
-- **Sliderarea:** The sliderarea is the space where all the sliders life.
+- **Sliderarea:** The sliderarea is the space where all the sliders live.
 - **Layerpicker:** The layerpicker is an additional area where all layers are listed and can be toggled. Also there the layernameexplanation is shown.
 
 ## Installation
@@ -37,7 +37,7 @@ Download the Plugin [here](https://github.com/WasMachenSachen/openseadragon-opac
 
 ## Setup and Usage
 <!-- TODO: Check if everything is right! -->
-1. Setup OSD, if already done go to 3.
+1. Setup OSD, if already done go to 3. 
 
 Add div for OSD to your html:
 ```html
@@ -66,7 +66,7 @@ viewer.addSimpleImage({
   // More options go here
 });
 ```
-> If no opacity is given the layer will have an opacity of 100% (or 1).
+> If no opacity is given the layer will have the default OSD opacity of 100% (or 1).
 
 
 3. Setup the additional information of the layers:
@@ -76,7 +76,7 @@ const layerInformation = [
     layerName: "<NAME_OF_THE_LAYER>",
     layerNameExplanation: "<EXPLANATION_OF_THE_LAYER>",
     source: "<YOUR_SOURCE>", // This has to be the same source as in the previous step!
-    hidden: <false|true>,
+    hidden: <false|true>,    // If true, the image is hidden by default and only availible in the layerpicker 
   },
   // One object for each layer
 ]
@@ -108,6 +108,7 @@ You can set multiple options in your options-object for the output of the slider
 | `showLayerInformation` | Boolean | true | If true, the layerinformation will be displayed in the layerpicker. | - |
 | `showSliders` | Boolean | true | If true, the sliderarea will be displayed.  | If set to false you probably don't need the plugin ;) |
 | `layerPickerHeading` | String | Choose layers:  | Heading for the Layerpicker | - |
+| `layerPickerButtonText` | String | Layer Picker | Buttontext for the button which toggles the layerpicker | - |
 | `sortable` | Boolean | true | If true, the up- and down-buttons are displayed | - |
 <!-- Blueprint for new Rows: | `` |   |   |   |   | -->
 
@@ -116,44 +117,43 @@ For styling you have two options:
 
 ### 1. Predefined stylesheets
 If you want it simple you can use one of our predefined stylesheets. Right now these stylesheets are availible:
-> TBD.
+> TBD. This will come soon. 
 <!-- TODO: Add names, descriptions and images -->
-- Sheet 1: One Sentence about it + Image
-- Sheet 2: One Sentence about it + Image
+<!-- - Sheet 1: One Sentence about it + Image
+- Sheet 2: One Sentence about it + Image -->
 
 Just import one into your HTML-document with the following link-tag: 
 <!-- TODO: add link! -->
 ```html
 <!-- ... -->
-  <link rel="stylesheet" href="TODO">
+  <link rel="stylesheet" href="<LINK_TO_FILE>">
 <!-- ... -->
 ``` 
 
 ### 2. Build your own stylesheet
 If you are not satisfied with the predefined stylesheets or want to customize it more to your styleguide you can create your own stylesheet. For this we have added classes to all elements. 
 <!-- TODO: add file and link! -->
-> TBD.
-In [style-blueprint.css](#) you find all classes you can use for styling. In addition, we have added comments describing on which elements this class owns.
+> TBD. Here you find an blueprint and more explanation soon.
+<!--In [style-blueprint.css](#) you find all classes you can use for styling. In addition, we have added comments describing on which elements this class owns.
 
-If you want to share your stylesheet with others, feel free to open a [pull request](https://github.com/WasMachenSachen/openseadragon-opacity-slider/pulls)!
+If you want to share your stylesheet with others, feel free to open a [pull request](https://github.com/WasMachenSachen/openseadragon-opacity-slider/pulls)!-->
+
 ## Team and Contribution
-This plugin is developed and maintained by this Team: 
-|  <div style="width:15%"></div>  |   |   |
-|:---:|:---:|:---:|
-| ![](https://avatars.githubusercontent.com/u/24228449?s=60&v=4) | [@WasMachenSachen](https://github.com/WasMachenSachen) | Tim Loges |
-| ![](https://avatars.githubusercontent.com/u/32795896?s=60&v=4) | [@BenediktEngel](https://github.com/BenediktEngel) | Benedikt Engel |
-| ![](https://avatars.githubusercontent.com/u/76556430?s=60&v=4) | [@Masch229](https://github.com/Masch229) | Marius Scherff |
-| ![](https://avatars.githubusercontent.com/u/33115432?s=60&v=4) | [@SickxX](https://github.com/SickxX) | Christopher Toth |
+This plugin is developed and maintained by the following team members:
+ - [@WasMachenSachen](https://github.com/WasMachenSachen) | Tim Loges
+ - [@BenediktEngel](https://github.com/BenediktEngel) | Benedikt Engel
+ - [@Masch229](https://github.com/Masch229) | Marius Scherff
+ - [@SickxX](https://github.com/SickxX) | Christopher Toth
 
 
 ### Contribute
-
+<!-- Maybe something about dev-server and build stuff with npm and vite  -->
 If you want to contribute feel free to build something, but give your best to follow the following steps:
 
-1. Create a new branch with the `dev`-branch as base. Please consider a good and speaking name for your branch.
+1. Create a new branch with the `dev`-branch as base. Please consider a good and self-descriptive name for your branch.
 2. Now you can build stuff.
 3. For your commit-messages please use the [conventional commits syntax](https://www.conventionalcommits.org/en/v1.0.0/#specification).
-4. If everything is done open a pull request onto the `dev`-branch we will look into it and when everything is fine it will get merged. 
+4. If everything is done open a pull request onto the `dev`-branch; we will look into it and when everything is fine it will get merged. 
 5. Your changes will be merged into the `main`-branch with the next version!
 
 ## MISC
