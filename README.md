@@ -2,10 +2,11 @@
 > This plugin/repository is under **active** development! Planned release is end of march! 
 
 This plugin adds the functionality to adjust the transparency of superimposed images to [OpenSeaDragon (OSD)](https://openseadragon.github.io) in the GUI, as well as to adjust their order.
-This can be useful for comparing different maps of the same place, satellite-imagery with different recording dates, images of art captured with different techniques<!-- TODO: (like in the [demo](#)) -->.
-<!-- TODO: GIF here -->
+This can be useful for comparing different maps of the same place, satellite-imagery with different recording dates, images of art captured with different techniques.
+![](./demo/assets/demo.gif)
 
-<!-- You can try out a demo [here](#). <br />Recordings kindly provided by the [*cda_* - Cranach Digital Archive](https://lucascranach.org/). © Stiftung Museum Kunstpalast, Düsseldorf / Technische Hochschule Köln, 2022   -->
+Painting shots from the video were kindly provided by the [*cda_* - Cranach Digital Archive](https://lucascranach.org/).
+<!-- You can try out a demo [here](#). -->
 
 ## Requirements
 OpenSeaDragon (OSD) > v.3.0.0
