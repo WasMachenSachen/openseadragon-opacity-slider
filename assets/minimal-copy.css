@@ -1,0 +1,128 @@
+/* Opinionated reset */
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  border-width: 0;
+  /* border-style: solid;
+  border-color: #e5e7eb; */
+}
+
+#opacitySliderWrapper{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.osdos-opacity-layer-slider-wrapper {
+  background: white;
+  padding: 0.5rem;
+  /*
+  * Reverse the order of the layers.
+  */
+  display: flex;
+  flex-direction: column-reverse;
+}
+.osdos-layer-slider {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding: 0.25rem 0;
+}
+.osdos-position-controls-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+.osodos-layer-name-wrapper {
+  padding: 0 0.25rem;
+  margin-right: 1rem;
+  /* By default show 10 characters, but on hover show the hole name */
+  width: 10ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.osodos-layer-name-wrapper:hover {
+  min-width: 7ch;
+  /* width: auto; */
+  text-overflow: unset;
+  overflow: initial;
+}
+.osodos-opacity-controls-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+.osdos-layer-slider-remove-button,
+.osdos-layer-slider-up-button,
+.osdos-layer-slider-down-button {
+  cursor: pointer;
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+  padding: 0;
+}
+
+.osdos-layer-slider-remove-button-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+.osdos-layer-slider-up-button-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+.osdos-layer-slider-down-button-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+.osdos-layer-slider-range-input {
+  width: 100%;
+}
+.osdos-layer-slider-number-input {
+  margin-left: 0.25rem;
+}
+.osdos-curser-not-allowed {
+  cursor: not-allowed;
+}
+
+/*
+* Layer Picker
+*/
+.osdos-layer-picker-wrapper{
+  background: white;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 1.2rem;
+  max-width: 25vw;
+  border-radius: 2%;
+}
+.osdos-layer-picker-wrapper > h2{
+  margin: 1rem;
+}
+.osdos-layer-picker-wrapper > ul{
+  list-style: none;
+  padding: 0;
+  margin: 1rem;
+}
+.osdos-layer-picker-wrapper > ul > li > p {
+  margin-left: 1.55rem;
+  margin-top: 0.5rem;
+}
+.osdos-layer-picker-wrapper::before{
+  top: 100%;
+  content: '';
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-width: 15px 20px 0 20px;
+  border-color: #ffffff transparent transparent transparent;
+  display: block;
+  border-top-color: rgba(255, 255, 255);
+  left: 50%;
+  transform: translateX(-50%);
+}
