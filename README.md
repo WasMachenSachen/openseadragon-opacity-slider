@@ -31,16 +31,13 @@ yarn: `yarn add openseadragon-opacity-slider`
 
 pnpm: `pnpm add openseadragon-opacity-slider` 
 
-After that import it into your JS- or HTML-File:
-```js
-import "<RELATIVE_PATH_TO_NODE_MODULES>/node_modules/openseadragon-opacity-slider/dist/openseadragon-opacity-slider.min.js"
-```
-> If you use this option you have to add `type="module"` to your script-tag in your HTML-file.
+After that import it into your JS-File:
 
- **OR**
-```html
-<script src="<RELATIVE_PATH_TO_NODE_MODULES>/node_modules/openseadragon-opacity-slider/dist/openseadragon-opacity-slider.min.js"></script>
+```js
+import "openseadragon-opacity-slider"
 ```
+
+> If you use this option you have to add `type="module"` to your script-tag in your HTML-file.
 
 ### 2. Use a CDN:
 Import one of this CDN-links in your HTML-file:
@@ -136,7 +133,7 @@ viewer.opacityslider({ ...osdosOptions, layerInformation });
 If everything is right there should be a basic sliderarea below the OSD-viewer. Now you can style the sliderarea and sliders like described [here](#styling) or change the options like described [below](#options).
 
 ## Options
-You can set multiple options in your options-object for the output of the sliderarea:
+You can set multiple options in your options-object to manipulate the output of the sliderarea. These are all optional and fallback to the default if not defined.
 | Option | Type | Default | Explanation | Additional information|
 |---|---|---|---|---|
 | `showLayerPicker` | Boolean | true | If true, the layerpicker will be displayed | - |
@@ -160,11 +157,11 @@ If you want it simple you can use one of our predefined stylesheets. Right now t
 
 Just import one into your HTML-document with the following link-tag..
 #### ...when you used a packagemanager:
-```html
-<!-- ... -->
-  <link rel="stylesheet" href="<RELATIVE_PATH_TO_NODE_MODULES>/openseadragon-opacity-slider/styles/<NAME_OF_THE_SHEET>.css">
-<!-- ... -->
+In your JS-File:
+```js
+import "openseadragon-opacity-slider/styles/<NAME_OF_THE_SHEET>.css";
 ``` 
+
 #### ...when you used a CDN:
 ```html
 <!-- ... -->
