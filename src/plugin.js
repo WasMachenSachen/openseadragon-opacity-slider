@@ -76,7 +76,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
      */
     const checkboxWrapper = document.createElement("div");
     checkboxWrapper.classList.add("osdos-layer-picker-wrapper");
-    checkboxWrapper.style = "background: white; display: none;";
+    checkboxWrapper.style = "display: none;";
     checkboxWrapper.id = "checkboxWrapperContent";
     let h2 = document.createElement("h2");
     h2.textContent = options.layerPickerHeading;
