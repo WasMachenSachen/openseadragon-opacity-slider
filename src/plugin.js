@@ -277,6 +277,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
      */
     if (options.showLayerPicker || options.showLayerPicker === undefined) {
       const checkboxToggleButton = document.createElement("button");
+      checkboxToggleButton.className = "osdos-layer-picker-button";
       checkboxToggleButton.innerHTML =
         options.layerPickerButtonText || "Layer Picker";
       checkboxToggleButton.addEventListener(
