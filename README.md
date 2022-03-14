@@ -2,10 +2,10 @@
 > This plugin/repository is under **active** development! Planned release is end of march! 
 
 This plugin adds the functionality to adjust the transparency of superimposed images to [OpenSeaDragon (OSD)](https://openseadragon.github.io) in the GUI, as well as to adjust their order.
-This can be useful for comparing different maps of the same place, satellite-imagery with different recording dates, images of art captured with different techniques<!-- TODO: (like in the [demo](#)) -->.
-<!-- TODO: GIF here -->
+This can be useful for comparing different maps of the same place, satellite-imagery with different recording dates, images of art captured with different techniques.
+![](./demo/assets/demo.gif)
 
-<!-- You can try out a demo [here](#). <br />Recordings kindly provided by the [*cda_* - Cranach Digital Archive](https://lucascranach.org/). © Stiftung Museum Kunstpalast, Düsseldorf / Technische Hochschule Köln, 2022   -->
+You can try out a demo [here](https://wasmachensachen.github.io/openseadragon-opacity-slider/).
 
 ## Requirements
 OpenSeaDragon (OSD) > v.3.0.0
@@ -23,20 +23,56 @@ For a better understanding of the plugin, here are some terms, which we will use
 If not already done install OSD as described in the [OSD installation guide](https://openseadragon.github.io/#download).
 After that, you can install the Plugin in multiple ways: 
 ### 1. Via npm/yarn/pnpm
-<!-- TODO: Add packagename when in npm! -->
 Use the installation-script for your prefered package manager from below:
 
-npm: `npm install XXX`
+npm: `npm install openseadragon-opacity-slider` or `npm i openseadragon-opacity-slider`
 
-yarn: `yarn add XXX`
+yarn: `yarn add openseadragon-opacity-slider` 
 
-pnpm: `pnpm add XXX`
+pnpm: `pnpm add openseadragon-opacity-slider` 
 
-### 2. Via download 
-Download the Plugin [here](https://github.com/WasMachenSachen/openseadragon-opacity-slider/archive/refs/heads/main.zip) and move it into your project directory. For size reasons only copy the `dist`-folder.
+After that import it into your JS-File:
+
+```js
+import "openseadragon-opacity-slider"
+```
+
+> If you use this option you have to add `type="module"` to your script-tag in your HTML-file.
+
+### 2. Use a CDN:
+Import one of this CDN-links in your HTML-file:
+
+jsDelivr: 
+```html
+<script src="https://cdn.jsdelivr.net/npm/openseadragon-opacity-slider/dist/openseadragon-opacity-slider.min.js"></script>
+```
+
+unpkg:
+```html
+<script src="https://unpkg.com/openseadragon-opacity-slider/dist/openseadragon-opacity-slider.min.js"></script>
+```
+
+bundle.run: 
+```html
+<script src="https://bundle.run/openseadragon-opacity-slider"></script>
+```
+
+> This will always provide the latest version. If you want to use a special version change the following part of the url from `openseadragon-opacity-slider` to `openseadragon-opacity-slider@X.X.X`.
+
+### 3. Via download 
+Download the Plugin [here](https://github.com/WasMachenSachen/openseadragon-opacity-slider/archive/refs/heads/main.zip) and move it into your project directory. For size reasons only copy the `dist`- and the `styles`-folder.
+And import it into your JS- or HTML-File:
+```js
+import "<RELATIVE_PATH_TO_DIST>/dist/openseadragon-opacity-slider.min.js"
+```
+> If you use this option you have to add `type="module"` to your script-tag in your HTML-file.
+
+ **OR**
+```html
+<script src="<RELATIVE_PATH_TO_DIST>/dist/openseadragon-opacity-slider.min.js"></script>
+```
 
 ## Setup and Usage
-<!-- TODO: Check if everything is right! -->
 1. Setup OSD, if already done go to 3. 
 
 Add div for OSD to your html:
@@ -68,7 +104,6 @@ viewer.addSimpleImage({
 ```
 > If no opacity is given the layer will have the default OSD opacity of 100% (or 1).
 
-
 3. Setup the additional information of the layers:
 ```js 
 const layerInformation = [
@@ -98,7 +133,7 @@ viewer.opacityslider({ ...osdosOptions, layerInformation });
 If everything is right there should be a basic sliderarea below the OSD-viewer. Now you can style the sliderarea and sliders like described [here](#styling) or change the options like described [below](#options).
 
 ## Options
-You can set multiple options in your options-object for the output of the sliderarea:
+You can set multiple options in your options-object to manipulate the output of the sliderarea. These are all optional and fallback to the default if not defined.
 | Option | Type | Default | Explanation | Additional information|
 |---|---|---|---|---|
 | `showLayerPicker` | Boolean | true | If true, the layerpicker will be displayed | - |
@@ -116,24 +151,40 @@ You can set multiple options in your options-object for the output of the slider
 For styling you have two options:
 
 ### 1. Predefined stylesheets
-If you want it simple you can use one of our predefined stylesheets. Right now these stylesheets are availible:
-> TBD. This will come soon. 
-<!-- TODO: Add names, descriptions and images -->
-<!-- - Sheet 1: One Sentence about it + Image
-- Sheet 2: One Sentence about it + Image -->
+If you want it simple you can use one of our predefined stylesheets. Right now this stylesheet is availible:
+- `Minimal`: This is the most basic styles you can use. Pretty clean in Black and white.
+- More are coming soon! We are working on sweet colourful styles.
 
-Just import one into your HTML-document with the following link-tag: 
-<!-- TODO: add link! -->
+Just import one into your HTML-document with the following link-tag..
+#### ...when you used a packagemanager:
+In your JS-File:
+```js
+import "openseadragon-opacity-slider/styles/<NAME_OF_THE_SHEET>.css";
+``` 
+
+#### ...when you used a CDN:
 ```html
 <!-- ... -->
-  <link rel="stylesheet" href="<LINK_TO_FILE>">
+  <link rel="stylesheet" href="<CDN_URL>/styles/<NAME_OF_THE_SHEET>.css">
+<!-- ... -->
+``` 
+Replace `<CDN_URL>` with one of these:
+- `https://cdn.jsdelivr.net/npm/openseadragon-opacity-slider`
+- `https://unpkg.com/openseadragon-opacity-slider`
+- `https://bundle.run/openseadragon-opacity-slider`
+(If you want a special version it's the same like described [here](#2-use-a-cdn))
+
+#### ...when you used the download:
+```html
+<!-- ... -->
+  <link rel="stylesheet" href="<RELATIVE_PATH_TO_STYLES_FOLDER>/styles/<NAME_OF_THE_SHEET>.css">
 <!-- ... -->
 ``` 
 
 ### 2. Build your own stylesheet
 If you are not satisfied with the predefined stylesheets or want to customize it more to your styleguide you can create your own stylesheet. For this we have added classes to all elements. 
 <!-- TODO: add file and link! -->
-> TBD. Here you find an blueprint and more explanation soon.
+> TBD. Here you find a blueprint and more explanation soon.
 <!--In [style-blueprint.css](#) you find all classes you can use for styling. In addition, we have added comments describing on which elements this class owns.
 
 If you want to share your stylesheet with others, feel free to open a [pull request](https://github.com/WasMachenSachen/openseadragon-opacity-slider/pulls)!-->
@@ -158,7 +209,7 @@ If you want to contribute feel free to build something, but give your best to fo
 
 ## MISC
 
-**Licence:** TBD.
+**Licence:** [BSD-3](./LICENSE)
 
 **Problems?** Please open an [issue](https://github.com/WasMachenSachen/openseadragon-opacity-slider/issues), maybe we can help.
 
