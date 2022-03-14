@@ -125,7 +125,8 @@ const pluginName = "OpenSeadragon Opacity Slider";
       const sliderWrapper = document.createElement("div");
       sliderWrapper.className = "osdos-layer-slider";
       sliderWrapper.setAttribute("data-osd-index", index);
-
+      const layerControlsWrapper = document.createElement("div");
+      layerControlsWrapper.className = "osdos-layer-controls-wrapper";
       /* Remove button markup */
       if (options.showRemove || options.showRemove === undefined) {
         let removeButton = document.createElement("button");
@@ -135,7 +136,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
         removeButton.addEventListener("click", () =>
           removeImage(el.source, options)
         );
-        sliderWrapper.appendChild(removeButton);
+        layerControlsWrapper.appendChild(removeButton);
       }
 
       if (options.sortable || options.sortable === undefined) {
@@ -159,16 +160,18 @@ const pluginName = "OpenSeadragon Opacity Slider";
           imageBackward(el.source, options)
         );
         buttonWrapper.appendChild(buttonDown);
-        sliderWrapper.appendChild(buttonWrapper);
+        layerControlsWrapper.appendChild(buttonWrapper);
       }
 
       /* Add layer name markup  */
       let layerName = document.createElement("span");
       layerName.innerHTML = el.layerName;
       layerName.classList.add("osodos-layer-name-wrapper");
-      sliderWrapper.appendChild(layerName);
+      layerControlsWrapper.appendChild(layerName);
       let opacityControlsWrapper = document.createElement("div");
       opacityControlsWrapper.classList.add("osodos-opacity-controls-wrapper");
+      sliderWrapper.appendChild(layerControlsWrapper);
+
       /* Add layer opacity controls markup  */
       if (options.showRangeSlider || options.showRangeSlider === undefined) {
         let layerOpacitySlider = document.createElement("input");
