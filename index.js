@@ -41,7 +41,7 @@ const options = {
   showRemove: true,
   showtempLayerInformation: true,
   showSliders: true,
-  layerPickerHeading: "Ebene wählen",
+  layerPickerHeading: "Choose Layer",
   layerPickerButtonText: "Layer Picker",
 };
 
