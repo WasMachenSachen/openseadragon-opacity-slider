@@ -1,16 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OpenSeaDragon Opacity Slider Demo</title>
     <script src="https://cdn.jsdelivr.net/npm/openseadragon@3.0.0/build/openseadragon/openseadragon.min.js"></script>
-    <link rel="stylesheet" href="./styles/minimal.css">
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.9.1/dist/cdn.min.js"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      id="customStylesheet"
+      rel="stylesheet"
+      href="./styles/black-and-yellow.css"
+    />
+    <style>
+      body {
+        font-family: system-ui, -apple-system,
+          /* Firefox supports this but not yet `system-ui` */ "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+      li {
+        margin-bottom: 20px;
+      }
+    </style>
   </head>
-  <body style="background: black">
-    <div id="openseadragon1" style="width: 800px; height: 800px; margin: auto;"></div>
-    <div id="opacitySliderWrapper"></div>
+  <body style="background: black" x-data="{ showMenu: true }">
+    <button
+      type="button"
+      @click="showMenu = true"
+      class="absolute m-4 right-0 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+    >
+      Show Settings
+    </button>
+
+    <div
+      class="fixed inset-0 overflow-hidden z-20"
+      aria-labelledby="slide-over-title"
+      role="dialog"
+      aria-modal="true"
+      x-show="showMenu"
+    >
+      <div class="absolute inset-0 overflow-hidden">
+        <div
+          class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+          aria-hidden="true"
+          x-show="showMenu"
+          x-transition:enter="ease-in-out duration-500"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          x-transition:leave="ease-in-out duration-500"
+          x-transition:leave-start="opacity-100"
+          x-transition:leave-end="opacity-0"
+        ></div>
+        <div
+          class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10"
+        >
+          <div
+            x-show="showMenu"
+            x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700"
+            x-transition:enter-start="translate-x-full"
+            x-transition:enter-end="translate-x-0"
+            x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
+            x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="translate-x-full"
+            class="pointer-events-auto relative w-screen max-w-md"
+          >
+            <div
+              x-show="showMenu"
+              x-transition:enter="ease-in-out duration-500"
+              x-transition:enter-start="opacity-0"
+              x-transition:enter-end="opacity-100"
+              x-transition:leave="ease-in-out duration-500"
+              x-transition:leave-start="opacity-100"
+              x-transition:leave-end="opacity-0"
+              class="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4"
+            >
+              <button
+                type="button"
+                class="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                @click="showMenu = false"
+              >
+                <span class="sr-only">Close panel</span>
+                <!-- Heroicon name: outline/x -->
+                <svg
+                  class="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div
+              class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl"
+            >
+              <div class="px-4 sm:px-6">
+                <h2
+                  class="text-lg font-medium text-gray-900"
+                  id="slide-over-title"
+                >
+                  Plugin Settings
+                </h2>
+              </div>
+              <div class="relative mt-6 flex-1 px-4 sm:px-6">
+                <!-- Replace with your content -->
+                <div class="absolute inset-0 px-4 sm:px-6">
+                  <!-- select options -->
+                  <div
+                    class="absolute bg-white right-0 p-4 rounded-bl-md"
+                    x-data="{
+                      stylesheets: [
+                        {name: 'minimal', 'fileName': 'minimal.css'},
+                        {name: 'minimal side', 'fileName': 'minimal-side.css'},
+                        {name: 'black & yellow', 'fileName': 'black-and-yellow.css'},
+                      ]
+                    }"
+                  >
+                    <h1>Options</h1>
+                    <!-- options -->
+                    <fieldset class="space-y-5">
+                      <legend class="sr-only">Notifications</legend>
+                      <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                          <input
+                            id="comments"
+                            aria-describedby="comments-description"
+                            name="comments"
+                            type="checkbox"
+                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          />
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <label
+                            for="comments"
+                            class="font-medium text-gray-700"
+                            >Comments</label
+                          >
+                          <p id="comments-description" class="text-gray-500">
+                            Get notified when someones posts a comment on a
+                            posting.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                          <input
+                            id="candidates"
+                            aria-describedby="candidates-description"
+                            name="candidates"
+                            type="checkbox"
+                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          />
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <label
+                            for="candidates"
+                            class="font-medium text-gray-700"
+                            >Candidates</label
+                          >
+                          <p id="candidates-description" class="text-gray-500">
+                            Get notified when a candidate applies for a job.
+                          </p>
+                        </div>
+                      </div>
+                      <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                          <input
+                            id="offers"
+                            aria-describedby="offers-description"
+                            name="offers"
+                            type="checkbox"
+                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                          />
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <label for="offers" class="font-medium text-gray-700"
+                            >Offers</label
+                          >
+                          <p id="offers-description" class="text-gray-500">
+                            Get notified when a candidate accepts or rejects an
+                            offer.
+                          </p>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <!-- stylesheet selector -->
+                    <div class="mt-10">
+                      <label
+                        for="location"
+                        class="block text-sm font-medium text-gray-700"
+                        >Available Stylesheets</label
+                      >
+                      <select
+                        id="location"
+                        name="location"
+                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                        @change="handleStyleSheet"
+                      >
+                        <template x-for="style in stylesheets">
+                          <option
+                            x-text="style.name"
+                            :value="style.fileName"
+                          ></option>
+                        </template>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- /End replace -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="openseadragon1"
+      style="width: 800px; height: 800px; margin: auto"
+    ></div>
+    <div id="opacitySliderWrapper" class="z-0"></div>
     <script type="module" src="/index.js"></script>
+    <script>
+      function handleStyleSheet(event) {
+        let path = document.getElementById("customStylesheet").href;
+        path =
+          path.substring(0, path.lastIndexOf("/") + 1) + event.target.value;
+        document.getElementById("customStylesheet").href = path;
+      }
+    </script>
   </body>
 </html>
