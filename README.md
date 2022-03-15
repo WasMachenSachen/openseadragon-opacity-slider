@@ -156,6 +156,8 @@ If you want it simple you can use one of our predefined stylesheets. Right now t
 ![](./docs-assets/screenshot_minimal.png)
 - `Minimal-Side`: Also basic styles but they are in a sidebar instead of below the viewer. 
 ![](./docs-assets/screenshot_minimal-side.png)
+- `Black & Yellow`: Another theme with some colors in black, yellow and gray. And some custom styled range sliders.
+![](./docs-assets/screenshot_black-and-yellow.jpeg)
 - More are coming soon! We are working on sweet colourful styles.
 
 Just import one into your HTML-document with the following link-tag..
