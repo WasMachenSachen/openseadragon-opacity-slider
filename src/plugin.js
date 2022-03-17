@@ -16,7 +16,6 @@ const pluginName = "OpenSeadragon Opacity Slider";
     if (!this.Instance) {
       options = options || {};
       options.viewer = this;
-      window.options = options;
       this.opacitysliderInstance = new $.OpacitySlider(options);
     }
   };
@@ -29,8 +28,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
       throw new Error(`${pluginName} requires options.layerInformation`);
     }
     /*
-     * Set inital options values
-     * TODO: set for each? therefore simplify if clauses later on
+     * Set inital hidden values
      */
     options.layerInformation.forEach((el) => {
       if (!el.hidden) el.hidden = false;
