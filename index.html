@@ -11,33 +11,26 @@
       src="https://unpkg.com/alpinejs@3.9.1/dist/cdn.min.js"
     ></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      id="customStylesheet"
-      rel="stylesheet"
-      href="./styles/black-and-yellow.css"
-    />
+    <link id="customStylesheet" rel="stylesheet" href="./styles/minimal.css" />
     <style>
       body {
         font-family: system-ui, -apple-system,
           /* Firefox supports this but not yet `system-ui` */ "Segoe UI", Roboto,
           Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
       }
-      li {
-        margin-bottom: 20px;
-      }
     </style>
   </head>
-  <body style="background: black" x-data="{ showMenu: true }">
+  <body class="bg-black" x-data="settingsData">
     <button
       type="button"
       @click="showMenu = true"
-      class="absolute m-4 right-0 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      class="absolute right-0 z-10 inline-flex items-center px-4 py-2 m-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
     >
       Show Settings
     </button>
-
+    <!-- Settings -->
     <div
-      class="fixed inset-0 overflow-hidden z-20"
+      class="fixed inset-0 z-20 overflow-hidden"
       aria-labelledby="slide-over-title"
       role="dialog"
       aria-modal="true"
@@ -45,7 +38,7 @@
     >
       <div class="absolute inset-0 overflow-hidden">
         <div
-          class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+          class="absolute inset-0 transition-opacity bg-gray-500 bg-opacity-75"
           aria-hidden="true"
           x-show="showMenu"
           x-transition:enter="ease-in-out duration-500"
@@ -56,7 +49,7 @@
           x-transition:leave-end="opacity-0"
         ></div>
         <div
-          class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10"
+          class="fixed inset-y-0 right-0 flex max-w-full pl-10 pointer-events-none"
         >
           <div
             x-show="showMenu"
@@ -66,7 +59,7 @@
             x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
             x-transition:leave-start="translate-x-0"
             x-transition:leave-end="translate-x-full"
-            class="pointer-events-auto relative w-screen max-w-md"
+            class="relative w-screen max-w-md pointer-events-auto"
           >
             <div
               x-show="showMenu"
@@ -76,17 +69,17 @@
               x-transition:leave="ease-in-out duration-500"
               x-transition:leave-start="opacity-100"
               x-transition:leave-end="opacity-0"
-              class="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4"
+              class="absolute top-0 left-0 flex pt-4 pr-2 -ml-8 sm:-ml-10 sm:pr-4"
             >
               <button
                 type="button"
-                class="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                class="text-gray-300 rounded-md hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
                 @click="showMenu = false"
               >
                 <span class="sr-only">Close panel</span>
                 <!-- Heroicon name: outline/x -->
                 <svg
-                  class="h-6 w-6"
+                  class="w-6 h-6"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -104,7 +97,7 @@
             </div>
 
             <div
-              class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl"
+              class="flex flex-col h-full py-6 overflow-y-scroll bg-white shadow-xl"
             >
               <div class="px-4 sm:px-6">
                 <h2
@@ -114,99 +107,60 @@
                   Plugin Settings
                 </h2>
               </div>
-              <div class="relative mt-6 flex-1 px-4 sm:px-6">
-                <!-- Replace with your content -->
-                <div class="absolute inset-0 px-4 sm:px-6">
+              <div class="relative flex-1 px-4 mt-6 sm:px-6">
+                <!-- Menu content -->
+                <div class="absolute inset-0 flex flex-col justify-between px-4 sm:px-6">
                   <!-- select options -->
                   <div
-                    class="absolute bg-white right-0 p-4 rounded-bl-md"
-                    x-data="{
-                      stylesheets: [
-                        {name: 'minimal', 'fileName': 'minimal.css'},
-                        {name: 'minimal side', 'fileName': 'minimal-side.css'},
-                        {name: 'black & yellow', 'fileName': 'black-and-yellow.css'},
-                      ]
-                    }"
+                    class="right-0 w-full p-4 bg-white rounded-bl-md"
                   >
                     <h1>Options</h1>
-                    <!-- options -->
                     <fieldset class="space-y-5">
-                      <legend class="sr-only">Notifications</legend>
-                      <div class="relative flex items-start">
-                        <div class="flex items-center h-5">
-                          <input
-                            id="comments"
-                            aria-describedby="comments-description"
-                            name="comments"
-                            type="checkbox"
-                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                          />
+                      <template x-for="option in optionsWithExplanation">
+                        <div
+                          class="relative flex items-start"
+                          x-data="{ id: $id('osdos-input') }"
+                        >
+                          <div class="flex items-center h-5">
+                            <input
+                              :id="id"
+                              type="checkbox"
+                              checked
+                              class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                              :name="option.key"
+                            />
+                          </div>
+                          <div class="ml-3 text-sm">
+                            <label
+                              :for="id"
+                              class="font-medium text-gray-700"
+                              x-text="option.name"
+                            ></label>
+                            <p class="text-gray-500">
+                              <span x-text="option.explanation"></span>
+                            </p>
+                          </div>
                         </div>
-                        <div class="ml-3 text-sm">
-                          <label
-                            for="comments"
-                            class="font-medium text-gray-700"
-                            >Comments</label
-                          >
-                          <p id="comments-description" class="text-gray-500">
-                            Get notified when someones posts a comment on a
-                            posting.
-                          </p>
-                        </div>
-                      </div>
-                      <div class="relative flex items-start">
-                        <div class="flex items-center h-5">
-                          <input
-                            id="candidates"
-                            aria-describedby="candidates-description"
-                            name="candidates"
-                            type="checkbox"
-                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                          />
-                        </div>
-                        <div class="ml-3 text-sm">
-                          <label
-                            for="candidates"
-                            class="font-medium text-gray-700"
-                            >Candidates</label
-                          >
-                          <p id="candidates-description" class="text-gray-500">
-                            Get notified when a candidate applies for a job.
-                          </p>
-                        </div>
-                      </div>
-                      <div class="relative flex items-start">
-                        <div class="flex items-center h-5">
-                          <input
-                            id="offers"
-                            aria-describedby="offers-description"
-                            name="offers"
-                            type="checkbox"
-                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                          />
-                        </div>
-                        <div class="ml-3 text-sm">
-                          <label for="offers" class="font-medium text-gray-700"
-                            >Offers</label
-                          >
-                          <p id="offers-description" class="text-gray-500">
-                            Get notified when a candidate accepts or rejects an
-                            offer.
-                          </p>
-                        </div>
-                      </div>
+                      </template>
                     </fieldset>
+                    <button
+                      type="button"
+                      class="absolute right-0 inline-flex items-center px-4 py-2 m-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      @click="applySettings"
+                    >
+                      Apply Options
+                    </button>
                     <!-- stylesheet selector -->
-                    <div class="mt-10">
+                    <div class="mt-28">
                       <label
                         for="location"
                         class="block text-sm font-medium text-gray-700"
-                        >Available Stylesheets</label
+                        >Pick a Stylesheet:</label
                       >
                       <select
                         id="location"
                         name="location"
-                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                        class="block w-full py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         @change="handleStyleSheet"
                       >
                         <template x-for="style in stylesheets">
@@ -218,15 +172,17 @@
                       </select>
                     </div>
                   </div>
+                  <div class=""><p class="mb-4">Fork me on <a href="https://github.com/WasMachenSachen/openseadragon-opacity-slider" class="underline">GitHub</a>.</p><p>This Demo is build with <a href="https://tailwindcss.com" class="underline text-cyan-500">tailwindcss</a>, <a href="https://alpinejs.dev" class="underline text-cyan-500">Alpine.js</a> and <a href="http://openseadragon.github.io" class="underline text-cyan-500">OSD</a>.</p>
+                  </div>
                 </div>
-                <!-- /End replace -->
+                <!-- End content -->
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
+    <!-- End settings -->
     <div
       id="openseadragon1"
       style="width: 800px; height: 800px; margin: auto"
@@ -234,12 +190,67 @@
     <div id="opacitySliderWrapper" class="z-0"></div>
     <script type="module" src="/index.js"></script>
     <script>
-      function handleStyleSheet(event) {
-        let path = document.getElementById("customStylesheet").href;
-        path =
-          path.substring(0, path.lastIndexOf("/") + 1) + event.target.value;
-        document.getElementById("customStylesheet").href = path;
-      }
+      /*
+       * This is only needed to provide some information in the demo settings
+       */
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("settingsData", () => ({
+          showMenu: true,
+          stylesheets: [
+            { name: "minimal", fileName: "minimal.css" },
+            { name: "minimal side", fileName: "minimal-side.css" },
+            { name: "black & yellow", fileName: "black-and-yellow.css" },
+          ],
+          optionsWithExplanation: [
+            {
+              name: "Sortable",
+              key: "sortable",
+              explanation: "If true, the up- and down-buttons are displayed.",
+            },
+            {
+              name: "Show Range Slider",
+              key: "showRangeSlider",
+              explanation: "If true, the rangeslider will be displayed. If this and `showNumberInput` are false the user can't change the opacity!",
+            },
+            {
+              name: "Show Number Input",
+              key: "showNumberInput",
+              explanation: "If true, the numberinput will be displayed. If this and `showRangeSlider` are false the user can't change the opacity!",
+            },
+            {
+              name: "Show Layer Picker",
+              key: "showLayerPicker",
+              explanation: "If true, the layerpicker will be displayed.",
+            },
+            {
+              name: "Show Remove",
+              key: "showRemove",
+              explanation: "If true, the removebutton will be displayed. This only toggles the remove-button. The user can still hide the layers in the layerpicker.",
+            },
+            {
+              name: "Show Layer Information",
+              key: "showLayerInformation",
+              explanation: "If true, the layerinformation will be displayed in the layerpicker.",
+            },
+          ],
+          applySettings() {
+            let checkboxes = document.querySelectorAll("[id^='osdos-input']");
+            let newOptions = {};
+            checkboxes.forEach((el) => {
+              newOptions[el.name] = el.checked;
+            });
+            destroyOsd();
+            initOsdOsPlugin(newOptions);
+            this.showMenu = false;
+          },
+          handleStyleSheet(event) {
+            let path = document.getElementById("customStylesheet").href;
+            path =
+              path.substring(0, path.lastIndexOf("/") + 1) + event.target.value;
+            document.getElementById("customStylesheet").href = path;
+          },
+        }));
+      });
     </script>
   </body>
 </html>
