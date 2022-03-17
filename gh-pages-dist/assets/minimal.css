@@ -24,6 +24,9 @@
   display: flex;
   flex-direction: column-reverse;
 }
+.osdos-layer-controls-wrapper{
+  display: flex;
+}
 .osdos-layer-slider {
   display: flex;
   align-items: center;
@@ -43,6 +46,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  z-index: 1;
 }
 .osodos-layer-name-wrapper:hover {
   min-width: 7ch;
