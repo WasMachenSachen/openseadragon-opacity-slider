@@ -141,7 +141,6 @@ You can set multiple options in your options-object to manipulate the output of 
 | `showNumberInput` | Boolean | true | If true, the numberinput will be displayed | If this and `showRangeSlider` are false the user can't change the opacity!  |
 | `showRemove` | Boolean | true | If true, the removebutton will be displayed | This only toggles the remove-button. The user can still hide the layers in the layerpicker. |
 | `showLayerInformation` | Boolean | true | If true, the layerinformation will be displayed in the layerpicker. | - |
-| `showSliders` | Boolean | true | If true, the sliderarea will be displayed.  | If set to false you probably don't need the plugin ;) |
 | `layerPickerHeading` | String | Choose layers:  | Heading for the Layerpicker | - |
 | `layerPickerButtonText` | String | Layer Picker | Buttontext for the button which toggles the layerpicker | - |
 | `sortable` | Boolean | true | If true, the up- and down-buttons are displayed | - |
