@@ -104,7 +104,14 @@ viewer.addSimpleImage({
 ```
 > If no opacity is given the layer will have the default OSD opacity of 100% (or 1).
 
-3. Setup the additional information of the layers:
+3. Add DIV for Sliders
+```html
+<!-- ... -->
+  <div id="opacitySliderWrapper"></div>
+<!-- ... -->
+```
+> Because the plugin will position it absolute, it doesn't matter where you put it in the dom.
+4. Setup the additional information of the layers:
 ```js 
 const layerInformation = [
   {
@@ -118,14 +125,14 @@ const layerInformation = [
 ```
 Please note, that it's currently **not** possible to add the same image (source) multiple times.
 
-3. Setup the [options](#options) for the layers:
+5. Setup the [options](#options) for the layers:
 ```js
 const osdosOptions = {
   // Options can go here
 }
 ```
 
-4. Add the plugin to the viewer:
+6. Add the plugin to the viewer:
 ```js
 viewer.opacityslider({ ...osdosOptions, layerInformation });
 ```
