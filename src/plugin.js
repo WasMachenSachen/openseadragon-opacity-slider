@@ -9,8 +9,10 @@ const pluginName = "OpenSeadragon Opacity Slider";
       `This version of ${pluginName} requires OpenSeadragon version 3.0.0+`
     );
   }
-  /*
+
+  /**
    * Add method to Openseadragon viewer class
+   * @param {Object} options - The options-object given at plugin-setup
    */
   $.Viewer.prototype.opacityslider = function (options) {
     if (!this.Instance) {
@@ -20,22 +22,33 @@ const pluginName = "OpenSeadragon Opacity Slider";
     }
   };
 
+  /**
+   * Construct the Plugin
+   * @constructor
+   * @param {Object} options - The options-object given at plugin-setup
+   */
   $.OpacitySlider = function (options) {
-    /*
-     * Check if layerInformation is Array, then add layerControlls for each layer
-     */
+    /* Check if layerInformation is given and is an array */
     if (!options.layerInformation || !Array.isArray(options.layerInformation)) {
       throw new Error(`${pluginName} requires options.layerInformation`);
     }
-    /*
-     * Set inital hidden values
-     */
+
+    /* Check if a div with the id 'opacitySliderWrapper' is added in the markup. */
+    if(!document.getElementById("opacitySliderWrapper")){
+      throw new Error(`${pluginName} requires a div with an id of 'opacitySliderWrapper'`);
+    }
+
+    /* Set inital hidden values */
     options.layerInformation.forEach((el) => {
       if (!el.hidden) el.hidden = false;
     });
+    
+    /* Set layerPickerHeading */
     options.layerPickerHeading = options.layerPickerHeading
       ? options.layerPickerHeading
       : "Choose layers:";
+    
+    /* Add div into the given div for the sliders */
     let opacitySliderDiv = document.createElement("div");
     opacitySliderDiv.id = "opacitySliderWrapperContent";
     document
@@ -43,15 +56,18 @@ const pluginName = "OpenSeadragon Opacity Slider";
       .appendChild(opacitySliderDiv)
       .classList.add("osdos-opacity-layer-slider-wrapper");
 
-    /* Checkbox markup option*/
+    /* Check if the layerPicker is wanted, if yes build it */
     if (options.showLayerPicker || options.showLayerPicker === undefined) {
       buildCheckboxMarkup(options);
     }
+
+    /* Build the markup when items are added to OSD */
     options.viewer.world.addHandler("add-item", function (event) {
       /*
        * Set inital hidden value right at osd image instance:
-       * 1. check type (tileimage or simpleimage)
-       * 2. filter options.layerInformation based on tilesUrl or Url
+       * 1. Check type (tileimage or simpleimage)
+       * 2. Filter options.layerInformation based on tilesUrl or Url
+       * 3. Build markup
        */
       let itemUrl = event.item.source.tilesUrl
         ? `${event.item.source.tilesUrl.slice(0, -7)}.dzi`
@@ -62,16 +78,17 @@ const pluginName = "OpenSeadragon Opacity Slider";
       event.item.osdosHidden = affiliatedLayerInformation.length
         ? affiliatedLayerInformation[0].hidden
         : false;
-      // wait till tiles are actually added
       buildMarkup(options);
     });
     console.log("Plugin Initialized");
   };
 
+  /**
+   * Builds the markup for the layerpicker
+   * @param {Object} options - The options-object given at plugin-setup
+   */
   function buildCheckboxMarkup(options) {
-    /*
-     * Layer selection markup
-     */
+    /* Build the markup */
     const checkboxWrapper = document.createElement("div");
     checkboxWrapper.classList.add("osdos-layer-picker-wrapper");
     checkboxWrapper.style = "display: none;";
@@ -100,9 +117,8 @@ const pluginName = "OpenSeadragon Opacity Slider";
     });
     checkboxWrapper.appendChild(ul);
     document.querySelector("#opacitySliderWrapper").prepend(checkboxWrapper);
-    /*
-     * Add visibility toggle functionality
-     */
+    
+    /* Add visibility toggle functionality */
     document
       .querySelectorAll("[data-osdos='visibility-checkbox']")
       .forEach((el) => {
@@ -112,6 +128,10 @@ const pluginName = "OpenSeadragon Opacity Slider";
       });
   }
 
+  /**
+   * Builds the markup for the sliders.
+   * @param {Object} options  - The options-object given at plugin-setup
+   */
   function buildMarkup(options) {
     let orderedLayerInformation = getLayerOrder(options);
     let opacitySliderWrapper = document.getElementById(
@@ -125,6 +145,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
       sliderWrapper.setAttribute("data-osd-index", index);
       const layerControlsWrapper = document.createElement("div");
       layerControlsWrapper.className = "osdos-layer-controls-wrapper";
+
       /* Remove button markup */
       if (options.showRemove || options.showRemove === undefined) {
         let removeButton = document.createElement("button");
@@ -132,45 +153,50 @@ const pluginName = "OpenSeadragon Opacity Slider";
         removeButton.classList.add("osdos-layer-slider-remove-button");
         removeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" class="osdos-layer-slider-remove-button-icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>`;
         removeButton.addEventListener("click", () =>
-          removeImage(el.source, options)
+          removeLayer(el.source, options)
         );
         layerControlsWrapper.appendChild(removeButton);
       }
 
+      /* Up- and down-button markup */
       if (options.sortable || options.sortable === undefined) {
         const buttonWrapper = document.createElement("div");
         buttonWrapper.className = "osdos-position-controls-wrapper";
+
         /* Up button markup */
         let buttonUp = document.createElement("button");
         buttonUp.setAttribute("data-osdos", "up-button");
         buttonUp.classList.add("osdos-layer-slider-up-button");
         buttonUp.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" class="osdos-layer-slider-up-button-icon" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>`;
         buttonUp.addEventListener("click", () =>
-          imageForward(el.source, options)
+          layerForward(el.source, options)
         );
         buttonWrapper.appendChild(buttonUp);
+
         /* Down button markup */
         let buttonDown = document.createElement("button");
         buttonDown.setAttribute("data-osdos", "down-button");
         buttonDown.classList.add("osdos-layer-slider-down-button");
         buttonDown.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" class="osdos-layer-slider-down-button-icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>`;
         buttonDown.addEventListener("click", () =>
-          imageBackward(el.source, options)
+          layerBackward(el.source, options)
         );
         buttonWrapper.appendChild(buttonDown);
         layerControlsWrapper.appendChild(buttonWrapper);
       }
 
-      /* Add layer name markup  */
+      /* Layername markup  */
       let layerName = document.createElement("span");
       layerName.innerHTML = el.layerName;
       layerName.classList.add("osodos-layer-name-wrapper");
       layerControlsWrapper.appendChild(layerName);
+
+      /* Element for the opacitycontrols */
       let opacityControlsWrapper = document.createElement("div");
       opacityControlsWrapper.classList.add("osodos-opacity-controls-wrapper");
       sliderWrapper.appendChild(layerControlsWrapper);
 
-      /* Add layer opacity controls markup  */
+      /* Opacity rangeslider markup  */
       if (options.showRangeSlider || options.showRangeSlider === undefined) {
         let layerOpacitySlider = document.createElement("input");
         const attributes = {
@@ -186,6 +212,8 @@ const pluginName = "OpenSeadragon Opacity Slider";
         });
         opacityControlsWrapper.appendChild(layerOpacitySlider);
       }
+
+      /* Opacity numberinput markup */
       if (options.showNumberInput || options.showNumberInput === undefined) {
         let layerOpacitySliderValue = document.createElement("input");
         const attributes = {
@@ -201,6 +229,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
         });
         opacityControlsWrapper.appendChild(layerOpacitySliderValue);
       }
+
       sliderWrapper.appendChild(opacityControlsWrapper);
 
       let currentIndex = findIndexBySource(el.source, options);
@@ -215,9 +244,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
       .querySelector("#opacitySliderWrapper")
       .appendChild(opacitySliderWrapper);
 
-    /*
-     * Add opacity functionality - slider and input box
-     */
+    /* Add opacity functionality to the rangeslider */
     document
       .querySelectorAll("[data-osdos='layer-opacity-slider']")
       .forEach((el, index) => {
@@ -236,6 +263,8 @@ const pluginName = "OpenSeadragon Opacity Slider";
           });
         });
       });
+    
+    /* Add opacity functionality to the numberinput */
     document
       .querySelectorAll("[data-osdos='layer-opacity-slider-value']")
       .forEach((el, index) => {
@@ -253,9 +282,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
         });
       });
 
-    /*
-     * Set opacity in slider and input based on the current OSD layer opacity
-     */
+    /* Set opacity in slider and input based on the current OSD layer opacity */
     orderedLayerInformation.forEach((el, index) => {
       let currentOpacity = options.viewer.world.getItemAt(index).getOpacity();
       if (options.showNumberInput || options.showNumberInput === undefined) {
@@ -270,9 +297,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
       }
     });
 
-    /*
-     * Add checkbox toggle button
-     */
+    /* Add layerpicker toggle button  */
     if (options.showLayerPicker || options.showLayerPicker === undefined) {
       const checkboxToggleButton = document.createElement("button");
       checkboxToggleButton.className = "osdos-layer-picker-button";
@@ -285,21 +310,22 @@ const pluginName = "OpenSeadragon Opacity Slider";
       opacitySliderWrapper.appendChild(checkboxToggleButton);
     }
 
-    /*
-     * Disable First Up-btn and Down-btn
-     */
-    disableButtons(options.viewer);
+    /* Disable first up- and last down-button */
+    disableButtons(options);
   }
 
-  /*
-   * toggle visibility of the Layer Picker
+  /** 
+   * Toggles the visibility of the layerpicker
    */
   function toggleLayerPickerVisibility() {
     let picker = document.getElementById("checkboxWrapperContent");
     picker.style.display = picker.style.display === "block" ? "none" : "block";
   }
-  /*
+
+  /**
    * Orders the layers in options object as they are ordered in OSD
+   * @param {Object} options - The options-object given at plugin-setup
+   * @returns {Array} - Orderd array with all layers
    */
   function getLayerOrder(options) {
     let itemAmount = options.viewer.world.getItemCount();
@@ -321,8 +347,11 @@ const pluginName = "OpenSeadragon Opacity Slider";
     return tempLayerInformation;
   }
 
-  /*
+  /**
    * Finds the Index of an image by the given source
+   * @param {String} source - The sourcepath of a layer
+   * @param {Object} options - The options-object given at plugin-setup
+   * @returns {number} - Index of the layer
    */
   function findIndexBySource(source, options) {
     let itemAmount = options.viewer.world.getItemCount();
@@ -336,15 +365,21 @@ const pluginName = "OpenSeadragon Opacity Slider";
     return -1;
   }
 
-  /*
+  /**
    * Changes the opacity to the given value based of the index
+   * @param {number} index - Index of the layer which will get the new opacity
+   * @param {number} opacity - New opacity for the layer
+   * @param {Object} options - The options-object given at plugin-setup
    */
   function setOpacity(index, opacity, options) {
     options.viewer.world.getItemAt(index).setOpacity(opacity);
   }
 
-  /*
+  /**
    * Moves the image by the given values based of the index
+   * @param {number} index - Index of the layer which will get moved
+   * @param {number} x - Delta of the movement in x-direction
+   * @param {number} y - Delta of the movement in y-direction
    */
   function moveLayer(index, x, y) {
     let currentPos = viewer.world.getItemAt(index).getBounds();
@@ -357,10 +392,12 @@ const pluginName = "OpenSeadragon Opacity Slider";
     // TODO: Rebuild the movement Tool
   }
 
-  /*
-   * Moves the image backwards if possible
+  /**
+   * Moves the layer backwards if possible
+   * @param {String} source - The sourcepath of the layer
+   * @param {Object} options - The options-object given at plugin-setup
    */
-  function imageBackward(source, options) {
+  function layerBackward(source, options) {
     let currentIndex = findIndexBySource(source, options);
     if (currentIndex !== 0) {
       options.viewer.world.setItemIndex(
@@ -370,15 +407,17 @@ const pluginName = "OpenSeadragon Opacity Slider";
       buildMarkup(options);
       // Call this function again when the switched item is hidden
       if (options.viewer.world.getItemAt(currentIndex).osdosHidden) {
-        imageBackward(source, options);
+        layerBackward(source, options);
       }
     }
   }
 
-  /*
-   * Moves the image forward if possible
+  /**
+   * Moves the layer forward if possible
+   * @param {String} source - The sourcepath of the layer
+   * @param {Object} options - The options-object given at plugin-setup
    */
-  function imageForward(source, options) {
+  function layerForward(source, options) {
     let currentIndex = findIndexBySource(source, options);
     if (options.viewer.world.getItemCount() > currentIndex + 1) {
       options.viewer.world.setItemIndex(
@@ -388,15 +427,17 @@ const pluginName = "OpenSeadragon Opacity Slider";
       buildMarkup(options);
       // Call this function again when the switched item is hidden
       if (options.viewer.world.getItemAt(currentIndex).osdosHidden) {
-        imageForward(source, options);
+        layerForward(source, options);
       }
     }
   }
 
-  /*
-   * Remove an image, by setting the opacity to zero and therefore not rendering the corresponding markup
+  /**
+   * Remove a layer, by setting the opacity to zero and therefore not rendering the corresponding markup
+   * @param {String} source - The sourcepath of the layer
+   * @param {Object} options - The options-object given at plugin-setup
    */
-  function removeImage(source, options) {
+  function removeLayer(source, options) {
     let currentIndex = findIndexBySource(source, options);
     setOpacity(currentIndex, 0, options);
     options.viewer.world.getItemAt(currentIndex).osdosHidden = true;
@@ -406,10 +447,12 @@ const pluginName = "OpenSeadragon Opacity Slider";
     }
   }
 
-  /*
-   * Adding an image, by setting the opacity to max(1)
+  /**
+   * Adding a layer, by setting the opacity to max(1)
+   * @param {String} source - The sourcepath of the layer
+   * @param {Object} options - The options-object given at plugin-setup
    */
-  function addImage(source, options) {
+  function addLayer(source, options) {
     let currentIndex = findIndexBySource(source, options);
     setOpacity(currentIndex, 1, options);
     options.viewer.world.getItemAt(currentIndex).osdosHidden = false;
@@ -417,8 +460,10 @@ const pluginName = "OpenSeadragon Opacity Slider";
     document.querySelector(`[data-osdos-source="${source}"]`).checked = true;
   }
 
-  /*
+  /**
    * Toggles the visibility of a layer based on a given event
+   * @param {Event} event - The clickevent of a checkbox
+   * @param {Object} options - The options-object given at plugin-setup
    */
   function toggleVisibility(event, options) {
     let index = findIndexBySource(
@@ -426,16 +471,17 @@ const pluginName = "OpenSeadragon Opacity Slider";
       options
     );
     if (event.target.checked && index != -1) {
-      addImage(event.target.getAttribute("data-osdos-source"), options);
+      addLayer(event.target.getAttribute("data-osdos-source"), options);
     } else if (!event.target.checked && index != -1) {
-      removeImage(event.target.getAttribute("data-osdos-source"), options);
+      removeLayer(event.target.getAttribute("data-osdos-source"), options);
     }
   }
-
-  /*
-   * sets the disabled class for the first up-button and the last down button
+  
+  /**
+   * Sets the disabled class for the first up-button and the last down button
+   * @param {Object} options - The options-object given at plugin-setup
    */
-  function disableButtons(viewer) {
+  function disableButtons(options) {
     // Get all disabled buttons and remove disabled
     document.querySelectorAll(".opacity-slider-disabled").forEach((el) => {
       el.classList.remove("osdos-curser-not-allowed");
@@ -452,7 +498,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
     // Get first up button and set disabled
     let lastElement = document.querySelector(
       `[data-osd-index='${
-        viewer.world.getItemCount() - 1
+        options.viewer.world.getItemCount() - 1
       }'] [data-osdos='up-button']`
     );
     if (lastElement !== null) {
