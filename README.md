@@ -141,7 +141,6 @@ You can set multiple options in your options-object to manipulate the output of 
 | `showNumberInput` | Boolean | true | If true, the numberinput will be displayed | If this and `showRangeSlider` are false the user can't change the opacity!  |
 | `showRemove` | Boolean | true | If true, the removebutton will be displayed | This only toggles the remove-button. The user can still hide the layers in the layerpicker. |
 | `showLayerInformation` | Boolean | true | If true, the layerinformation will be displayed in the layerpicker. | - |
-| `showSliders` | Boolean | true | If true, the sliderarea will be displayed.  | If set to false you probably don't need the plugin ;) |
 | `layerPickerHeading` | String | Choose layers:  | Heading for the Layerpicker | - |
 | `layerPickerButtonText` | String | Layer Picker | Buttontext for the button which toggles the layerpicker | - |
 | `sortable` | Boolean | true | If true, the up- and down-buttons are displayed | - |
@@ -156,6 +155,8 @@ If you want it simple you can use one of our predefined stylesheets. Right now t
 ![](./docs-assets/screenshot_minimal.png)
 - `Minimal-Side`: Also basic styles but they are in a sidebar instead of below the viewer. 
 ![](./docs-assets/screenshot_minimal-side.png)
+- `Black & Yellow`: Another theme with some colors in black, yellow and gray. And some custom styled range sliders.
+![](./docs-assets/screenshot_black-and-yellow.jpeg)
 - More are coming soon! We are working on sweet colourful styles.
 
 Just import one into your HTML-document with the following link-tag..

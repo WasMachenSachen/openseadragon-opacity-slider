@@ -8,11 +8,10 @@
   border-color: #e5e7eb; */
 }
 
-#opacitySliderWrapper{
+#opacitySliderWrapper {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  right: 0;
 }
 
 .osdos-opacity-layer-slider-wrapper {
@@ -24,12 +23,20 @@
   display: flex;
   flex-direction: column-reverse;
 }
+.osdos-layer-controls-wrapper {
+  display: flex;
+}
 .osdos-layer-slider {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   /* justify-content: space-between; */
-  padding: 0.25rem 0;
+  padding: 0.5rem 0;
 }
+.osdos-layer-slider:not(:first-child) {
+  border-bottom: 1px solid black;
+}
+
 .osdos-position-controls-wrapper {
   display: flex;
   align-items: center;
@@ -38,14 +45,15 @@
 .osodos-layer-name-wrapper {
   padding: 0 0.25rem;
   margin-right: 1rem;
-  /* By default show 10 characters, but on hover show the hole name */
-  width: 10ch;
+  /* By default show 20 characters, but on hover show the hole name */
+  width: 20ch;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  z-index: 1;
 }
 .osodos-layer-name-wrapper:hover {
-  min-width: 7ch;
+  min-width: 17ch;
   /* width: auto; */
   text-overflow: unset;
   overflow: initial;
@@ -90,20 +98,20 @@
 /*
 * Layer Picker
 */
-.osdos-layer-picker-wrapper{
+.osdos-layer-picker-wrapper {
   background: white;
   position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: 1.2rem;
-  max-width: 25vw;
+  /* bottom: 100%; */
+  left: 100%;
+  /* transform: translateX(-50%); */
+  margin-left: 1.2rem;
+  min-width: 25vw;
   border-radius: 2%;
 }
-.osdos-layer-picker-wrapper > h2{
+.osdos-layer-picker-wrapper > h2 {
   margin: 1rem;
 }
-.osdos-layer-picker-wrapper > ul{
+.osdos-layer-picker-wrapper > ul {
   list-style: none;
   padding: 0;
   margin: 1rem;
@@ -112,17 +120,16 @@
   margin-left: 1.55rem;
   margin-top: 0.5rem;
 }
-.osdos-layer-picker-wrapper::before{
-  top: 100%;
-  content: '';
+.osdos-layer-picker-wrapper::before {
+  top: 2%;
+  content: "";
   position: absolute;
   height: 0;
   width: 0;
   border-style: solid;
-  border-width: 15px 20px 0 20px;
-  border-color: #ffffff transparent transparent transparent;
+  border-width: 10px 20px 10px 0;
+  border-color: transparent #ffffff transparent transparent;
   display: block;
-  border-top-color: rgba(255, 255, 255);
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  transform: translateX(-80%);
 }

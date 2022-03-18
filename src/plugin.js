@@ -16,7 +16,6 @@ const pluginName = "OpenSeadragon Opacity Slider";
     if (!this.Instance) {
       options = options || {};
       options.viewer = this;
-      window.options = options;
       this.opacitysliderInstance = new $.OpacitySlider(options);
     }
   };
@@ -29,8 +28,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
       throw new Error(`${pluginName} requires options.layerInformation`);
     }
     /*
-     * Set inital options values
-     * TODO: set for each? therefore simplify if clauses later on
+     * Set inital hidden values
      */
     options.layerInformation.forEach((el) => {
       if (!el.hidden) el.hidden = false;
@@ -76,7 +74,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
      */
     const checkboxWrapper = document.createElement("div");
     checkboxWrapper.classList.add("osdos-layer-picker-wrapper");
-    checkboxWrapper.style = "background: white; display: none;";
+    checkboxWrapper.style = "display: none;";
     checkboxWrapper.id = "checkboxWrapperContent";
     let h2 = document.createElement("h2");
     h2.textContent = options.layerPickerHeading;
@@ -277,6 +275,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
      */
     if (options.showLayerPicker || options.showLayerPicker === undefined) {
       const checkboxToggleButton = document.createElement("button");
+      checkboxToggleButton.className = "osdos-layer-picker-button";
       checkboxToggleButton.innerHTML =
         options.layerPickerButtonText || "Layer Picker";
       checkboxToggleButton.addEventListener(

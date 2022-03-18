@@ -1,0 +1,222 @@
+/* Opinionated reset */
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  border-width: 0;
+  /* border-style: solid;
+  border-color: #e5e7eb; */
+}
+
+#opacitySliderWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.osdos-opacity-layer-slider-wrapper {
+  background: #666666;
+  padding: 0.5rem;
+  /*
+  * Reverse the order of the layers.
+  */
+  display: flex;
+  flex-direction: column-reverse;
+}
+.osdos-layer-controls-wrapper {
+  display: flex;
+}
+.osdos-layer-slider {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding: 0.5rem 0;
+}
+.osdos-position-controls-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+.osodos-layer-name-wrapper {
+  padding: 0 0.25rem;
+  margin-right: 1rem;
+  /* By default show 10 characters, but on hover show the hole name */
+  width: 10ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 1;
+  color: #dfdfdf;
+}
+.osodos-layer-name-wrapper:hover {
+  min-width: 7ch;
+  /* width: auto; */
+  text-overflow: unset;
+  overflow: initial;
+}
+.osodos-opacity-controls-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+.osdos-layer-slider-remove-button,
+.osdos-layer-slider-up-button,
+.osdos-layer-slider-down-button {
+  cursor: pointer;
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+  padding: 0;
+}
+
+.osdos-layer-slider-remove-button-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: #e6b800;
+}
+.osdos-layer-slider-up-button-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: #e6b800;
+}
+.osdos-layer-slider-down-button-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: #e6b800;
+}
+.osdos-curser-not-allowed {
+  cursor: not-allowed;
+}
+
+/*
+* Layer Picker
+*/
+.osdos-layer-picker-wrapper {
+  background-color: #666666;
+  position: absolute;
+  bottom: 100%;
+  margin-bottom: 1.2rem;
+  /* max-width: 25vw; */
+  border-radius: 0.125rem;
+  color: #dfdfdf;
+}
+.osdos-layer-picker-wrapper > h2 {
+  margin: 1rem;
+}
+.osdos-layer-picker-wrapper > ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem;
+}
+.osdos-layer-picker-wrapper > ul > li > p {
+  margin-top: 0.5rem;
+}
+.osdos-layer-picker-wrapper label {
+  display: block;
+  margin-left: 2rem;
+}
+.osdos-layer-picker-wrapper input {
+  position: absolute;
+  background-color: #666666;
+  color: transparent;
+  appearance: none;
+  -webkit-box-shadow: 0px 0px 0px 2px rgba(255, 204, 0, 1);
+  -moz-box-shadow: 0px 0px 0px 2px rgba(255, 204, 0, 1);
+  box-shadow: 0px 0px 0px 2px rgba(255, 204, 0, 1);
+  width: 1rem;
+  height: 1rem;
+}
+.osdos-layer-picker-wrapper input[type='checkbox']:checked {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23FFCC00' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e") !important;
+}
+.osdos-layer-picker-wrapper::before {
+  top: 100%;
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-width: 15px 20px 0 20px;
+  border-color: #666666 transparent transparent transparent;
+  display: block;
+  border-top-color: #666666;
+  left: 30%;
+  transform: translateX(-50%);
+}
+.osdos-layer-picker-button{
+  width: 15rem;
+  border-radius: 0.125rem;
+  background-color: #e6b800;
+  color: black;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+/*
+opacity slider (input range) style
+*/
+.osdos-layer-slider-range-input {
+  width: 100%;
+  height: 0.25rem;
+  background-color: black;
+  border-radius: 0.5rem;
+  appearance: none;
+  margin: auto;
+}
+/* RESET INPUT RANGE STYLES */
+.osdos-layer-slider-range-input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+.osdos-layer-slider-range-input[type="range"]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+.osdos-layer-slider-range-input[type="range"]::-ms-track {
+  cursor: pointer;
+  background-color: transparent;
+  border-color: transparent;
+  color: transparent;
+  width: 100%;
+}
+/* APPLY CUSTOM STYLES */
+/* Special styling for WebKit */
+.osdos-layer-slider-range-input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  cursor: ew-resize;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjYgMTUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTI1LjM4NSA3LjExOTg3bC05LjI4OSA2Ljg4OTkzVi4yMTk3MjdsOS4yODkgNi45MDAxNDN6TS42MTQ5OSA3LjExOTg3bDkuMjg5LTYuOTAwMTQzVjE0LjAwOThsLTkuMjg5LTYuODg5OTN6IiBmaWxsPSIjRTZCODAwIi8+PC9zdmc+");
+  background-size: 60%;
+  background-color: black;
+  border-radius: 9999px;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 1.75rem;
+  width: 1.75rem;
+}
+/* All the same stuff for Firefox */
+.osdos-layer-slider-range-input[type="range"]::-moz-range-thumb {
+  background: #e6b800;
+  cursor: ew-resize;
+  border-radius: 9999px;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.osdos-layer-slider-number-input {
+  margin-left: 0.25rem;
+  color: #e6b800;
+  background-color: black;
+  padding: 0.25rem 0.5rem;
+  border-radius: 5%;
+}
+/* Hide Arrows/Spinners in Input field */
+/* Chrome, Safari, Edge, Opera */
+.osdos-layer-slider-number-input::-webkit-outer-spin-button,
+.osdos-layer-slider-number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0px;
+}
+/* Firefox */
+.osdos-layer-slider-number-input[type="number"] {
+  -moz-appearance: textfield;
+}

@@ -1,18 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OpenSeaDragon Opacity Slider Demo</title>
     <script src="https://cdn.jsdelivr.net/npm/openseadragon@3.0.0/build/openseadragon/openseadragon.min.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.9.1/dist/cdn.min.js"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <script type="module" crossorigin src="/openseadragon-opacity-slider/assets/index.bd04a641.js"></script>
-    <link rel="stylesheet" href="/openseadragon-opacity-slider/assets/index.9b3b83f5.css">
+    
+    <script type="module" crossorigin src="/openseadragon-opacity-slider/assets/index.117153d6.js"></script>
+    <link rel="stylesheet" href="/openseadragon-opacity-slider/assets/index.7767c923.css">
   </head>
-  <body style="background: black">
-    <div id="openseadragon1" style="width: 800px; height: 800px; margin: auto;"></div>
-    <div id="opacitySliderWrapper"></div>
+  <body class="bg-black" x-data="settingsData">
+    <button
+      type="button"
+      @click="showMenu = true"
+      class="absolute right-0 z-10 inline-flex items-center px-4 py-2 m-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+    >
+      Show Settings
+    </button>
+    <!-- Settings -->
+    <div
+      class="fixed inset-0 z-20 overflow-hidden"
+      aria-labelledby="slide-over-title"
+      role="dialog"
+      aria-modal="true"
+      x-show="showMenu"
+    >
+      <div class="absolute inset-0 overflow-hidden">
+        <div
+          class="absolute inset-0 transition-opacity bg-gray-500 bg-opacity-75"
+          aria-hidden="true"
+          x-show="showMenu"
+          x-transition:enter="ease-in-out duration-500"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          x-transition:leave="ease-in-out duration-500"
+          x-transition:leave-start="opacity-100"
+          x-transition:leave-end="opacity-0"
+        ></div>
+        <div
+          class="fixed inset-y-0 right-0 flex max-w-full pl-10 pointer-events-none"
+        >
+          <div
+            x-show="showMenu"
+            x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700"
+            x-transition:enter-start="translate-x-full"
+            x-transition:enter-end="translate-x-0"
+            x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
+            x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="translate-x-full"
+            class="relative w-screen max-w-md pointer-events-auto"
+          >
+            <div
+              x-show="showMenu"
+              x-transition:enter="ease-in-out duration-500"
+              x-transition:enter-start="opacity-0"
+              x-transition:enter-end="opacity-100"
+              x-transition:leave="ease-in-out duration-500"
+              x-transition:leave-start="opacity-100"
+              x-transition:leave-end="opacity-0"
+              class="absolute top-0 left-0 flex pt-4 pr-2 -ml-8 sm:-ml-10 sm:pr-4"
+            >
+              <button
+                type="button"
+                class="text-gray-300 rounded-md hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                @click="showMenu = false"
+              >
+                <span class="sr-only">Close panel</span>
+                <!-- Heroicon name: outline/x -->
+                <svg
+                  class="w-6 h-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div
+              class="flex flex-col h-full py-6 overflow-y-scroll bg-white shadow-xl"
+            >
+              <div class="px-4 sm:px-6">
+                <h2
+                  class="text-lg font-medium text-gray-900"
+                  id="slide-over-title"
+                >
+                  Plugin Settings
+                </h2>
+              </div>
+              <div class="relative flex-1 px-4 mt-6 sm:px-6">
+                <!-- Menu content -->
+                <div class="absolute inset-0 flex flex-col justify-between px-4 sm:px-6">
+                  <!-- select options -->
+                  <div
+                    class="right-0 w-full p-4 bg-white rounded-bl-md"
+                  >
+                    <h1>Options</h1>
+                    <fieldset class="space-y-5">
+                      <template x-for="option in optionsWithExplanation">
+                        <div
+                          class="relative flex items-start"
+                          x-data="{ id: $id('osdos-input') }"
+                        >
+                          <div class="flex items-center h-5">
+                            <input
+                              :id="id"
+                              type="checkbox"
+                              checked
+                              class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                              :name="option.key"
+                            />
+                          </div>
+                          <div class="ml-3 text-sm">
+                            <label
+                              :for="id"
+                              class="font-medium text-gray-700"
+                              x-text="option.name"
+                            ></label>
+                            <p class="text-gray-500">
+                              <span x-text="option.explanation"></span>
+                            </p>
+                          </div>
+                        </div>
+                      </template>
+                    </fieldset>
+                    <button
+                      type="button"
+                      class="absolute right-0 inline-flex items-center px-4 py-2 m-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      @click="applySettings"
+                    >
+                      Apply Options
+                    </button>
+                    <!-- stylesheet selector -->
+                    <div class="mt-28">
+                      <label
+                        for="location"
+                        class="block text-sm font-medium text-gray-700"
+                        >Pick a Stylesheet:</label
+                      >
+                      <select
+                        id="location"
+                        name="location"
+                        class="block w-full py-2 pl-3 pr-10 mt-1 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        @change="handleStyleSheet"
+                      >
+                        <template x-for="style in stylesheets">
+                          <option
+                            x-text="style.name"
+                            :value="style.fileName"
+                          ></option>
+                        </template>
+                      </select>
+                    </div>
+                  </div>
+                  <div class=""><p class="mb-4">Fork me on <a href="https://github.com/WasMachenSachen/openseadragon-opacity-slider" class="underline">GitHub</a>.</p><p>This Demo is build with <a href="https://tailwindcss.com" class="underline text-cyan-500">tailwindcss</a>, <a href="https://alpinejs.dev" class="underline text-cyan-500">Alpine.js</a> and <a href="http://openseadragon.github.io" class="underline text-cyan-500">OSD</a>.</p>
+                  </div>
+                </div>
+                <!-- End content -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End settings -->
+    <div
+      id="openseadragon1"
+      style="width: 800px; height: 800px; margin: auto"
+    ></div>
+    <div id="opacitySliderWrapper" class="z-0"></div>
     
+    <script>
+      /*
+       * This is only needed to provide some information in the demo settings
+       */
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("settingsData", () => ({
+          showMenu: true,
+          stylesheets: [
+            { name: "minimal", fileName: "minimal.css" },
+            { name: "minimal side", fileName: "minimal-side.css" },
+            { name: "black & yellow", fileName: "black-and-yellow.css" },
+          ],
+          optionsWithExplanation: [
+            {
+              name: "Sortable",
+              key: "sortable",
+              explanation: "If true, the up- and down-buttons are displayed.",
+            },
+            {
+              name: "Show Range Slider",
+              key: "showRangeSlider",
+              explanation: "If true, the rangeslider will be displayed. If this and `showNumberInput` are false the user can't change the opacity!",
+            },
+            {
+              name: "Show Number Input",
+              key: "showNumberInput",
+              explanation: "If true, the numberinput will be displayed. If this and `showRangeSlider` are false the user can't change the opacity!",
+            },
+            {
+              name: "Show Layer Picker",
+              key: "showLayerPicker",
+              explanation: "If true, the layerpicker will be displayed.",
+            },
+            {
+              name: "Show Remove",
+              key: "showRemove",
+              explanation: "If true, the removebutton will be displayed. This only toggles the remove-button. The user can still hide the layers in the layerpicker.",
+            },
+            {
+              name: "Show Layer Information",
+              key: "showLayerInformation",
+              explanation: "If true, the layerinformation will be displayed in the layerpicker.",
+            },
+          ],
+          applySettings() {
+            let checkboxes = document.querySelectorAll("[id^='osdos-input']");
+            let newOptions = {};
+            checkboxes.forEach((el) => {
+              newOptions[el.name] = el.checked;
+            });
+            destroyOsd();
+            initOsdOsPlugin(newOptions);
+            this.showMenu = false;
+          },
+          handleStyleSheet(event) {
+            let path = document.querySelector('[rel="stylesheet"]').href;
+            path =
+              path.substring(0, path.lastIndexOf("/") + 1) + event.target.value;
+            document.querySelector('[rel="stylesheet"]').href = path;
+          },
+        }));
+      });
+    </script>
   </body>
 </html>
