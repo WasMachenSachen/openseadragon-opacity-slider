@@ -62,7 +62,6 @@ function initOsdOsPlugin(newOptions) {
         layerPickerHeading: "Choose Layer",
         layerPickerButtonText: "Layer Picker",
       };
-  console.log(options);
   /*
    * init opacity slider plugin
    */

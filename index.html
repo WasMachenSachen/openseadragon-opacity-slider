@@ -11,7 +11,7 @@
       src="https://unpkg.com/alpinejs@3.9.1/dist/cdn.min.js"
     ></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link id="customStylesheet" rel="stylesheet" href="./styles/minimal.css" />
+    <link rel="stylesheet" href="./styles/minimal.css" />
     <style>
       body {
         font-family: system-ui, -apple-system,
@@ -244,10 +244,10 @@
             this.showMenu = false;
           },
           handleStyleSheet(event) {
-            let path = document.getElementById("customStylesheet").href;
+            let path = document.querySelector('[rel="stylesheet"]').href;
             path =
               path.substring(0, path.lastIndexOf("/") + 1) + event.target.value;
-            document.getElementById("customStylesheet").href = path;
+            document.document.querySelector('[rel="stylesheet"]').href = path;
           },
         }));
       });
