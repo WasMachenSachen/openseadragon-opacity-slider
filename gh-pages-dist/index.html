@@ -13,7 +13,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     
-    <script type="module" crossorigin src="/openseadragon-opacity-slider/assets/index.07098738.js"></script>
+    <script type="module" crossorigin src="/openseadragon-opacity-slider/assets/index.117153d6.js"></script>
     <link rel="stylesheet" href="/openseadragon-opacity-slider/assets/index.7767c923.css">
   </head>
   <body class="bg-black" x-data="settingsData">
@@ -240,10 +240,10 @@
             this.showMenu = false;
           },
           handleStyleSheet(event) {
-            let path = document.getElementById("customStylesheet").href;
+            let path = document.querySelector('[rel="stylesheet"]').href;
             path =
               path.substring(0, path.lastIndexOf("/") + 1) + event.target.value;
-            document.getElementById("customStylesheet").href = path;
+            document.document.querySelector('[rel="stylesheet"]').href = path;
           },
         }));
       });
