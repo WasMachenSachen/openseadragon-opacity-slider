@@ -1,6 +1,6 @@
 {
   "name": "openseadragon-opacity-slider",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "This plugin adds to OpenSeaDragon the functionality to adjust the transparency of superimposed images in the GUI, as well as to adjust their order.",
   "main": "src/plugin.js",
   "scripts": {
@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/WasMachenSachen/openseadragon-opacity-slider#readme",
   "devDependencies": {
-    "vite": "^2.8.6"
+    "vite": "2.8.6"
   }
 }
