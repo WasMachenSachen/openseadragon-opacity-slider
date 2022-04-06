@@ -1,5 +1,4 @@
 # openseadragon-opacity-slider
-> This plugin/repository is under **active** development! Planned release is end of march! 
 
 This plugin adds the functionality to adjust the transparency of superimposed images to [OpenSeaDragon (OSD)](https://openseadragon.github.io) in the GUI, as well as to adjust their order.
 This can be useful for comparing different maps of the same place, satellite-imagery with different recording dates, images of art captured with different techniques.
@@ -8,7 +7,7 @@ This can be useful for comparing different maps of the same place, satellite-ima
 You can try out a demo [here](https://wasmachensachen.github.io/openseadragon-opacity-slider/).
 
 ## Requirements
-OpenSeaDragon (OSD) > v.3.0.0
+OpenSeaDragon (OSD) > v.2.4.2
 
 ## Glossary
 For a better understanding of the plugin, here are some terms, which we will use in this documentation:

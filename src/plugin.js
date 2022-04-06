@@ -2,11 +2,10 @@ const pluginName = "OpenSeadragon Opacity Slider";
 (function ($) {
   /*
    * Check OSD Version
-   * TODO: check if Plugin could be working in OSD v2
    */
-  if (!$.version || $.version.major < 3) {
+  if (!$.version || $.version.major < 2) {
     throw new Error(
-      `This version of ${pluginName} requires OpenSeadragon version 3.0.0+`
+      `This version of ${pluginName} requires OpenSeadragon version 2.0.0+`
     );
   }
 
@@ -34,20 +33,22 @@ const pluginName = "OpenSeadragon Opacity Slider";
     }
 
     /* Check if a div with the id 'opacitySliderWrapper' is added in the markup. */
-    if(!document.getElementById("opacitySliderWrapper")){
-      throw new Error(`${pluginName} requires a div with an id of 'opacitySliderWrapper'`);
+    if (!document.getElementById("opacitySliderWrapper")) {
+      throw new Error(
+        `${pluginName} requires a div with an id of 'opacitySliderWrapper'`
+      );
     }
 
     /* Set inital hidden values */
     options.layerInformation.forEach((el) => {
       if (!el.hidden) el.hidden = false;
     });
-    
+
     /* Set layerPickerHeading */
     options.layerPickerHeading = options.layerPickerHeading
       ? options.layerPickerHeading
       : "Choose layers:";
-    
+
     /* Add div into the given div for the sliders */
     let opacitySliderDiv = document.createElement("div");
     opacitySliderDiv.id = "opacitySliderWrapperContent";
@@ -117,7 +118,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
     });
     checkboxWrapper.appendChild(ul);
     document.querySelector("#opacitySliderWrapper").prepend(checkboxWrapper);
-    
+
     /* Add visibility toggle functionality */
     document
       .querySelectorAll("[data-osdos='visibility-checkbox']")
@@ -263,7 +264,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
           });
         });
       });
-    
+
     /* Add opacity functionality to the numberinput */
     document
       .querySelectorAll("[data-osdos='layer-opacity-slider-value']")
@@ -314,7 +315,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
     disableButtons(options);
   }
 
-  /** 
+  /**
    * Toggles the visibility of the layerpicker
    */
   function toggleLayerPickerVisibility() {
@@ -476,7 +477,7 @@ const pluginName = "OpenSeadragon Opacity Slider";
       removeLayer(event.target.getAttribute("data-osdos-source"), options);
     }
   }
-  
+
   /**
    * Sets the disabled class for the first up-button and the last down button
    * @param {Object} options - The options-object given at plugin-setup
