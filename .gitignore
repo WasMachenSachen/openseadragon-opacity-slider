@@ -90,3 +90,4 @@ build
 
 # Projekt specifics
 images
+tailwind.config.js
